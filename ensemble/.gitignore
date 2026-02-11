@@ -1,0 +1,7 @@
+*.pt
+*.npy
+*.out
+*.err
+*.log
+__pycache__/
+.ipynb_checkpoints/

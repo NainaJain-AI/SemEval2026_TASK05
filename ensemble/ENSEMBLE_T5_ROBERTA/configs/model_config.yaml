@@ -1,0 +1,21 @@
+seed: 42
+t5_lr: 1e-5
+encoder_lr: 2e-5
+batch_size: 8
+
+models:
+  encoder: roberta-base
+  t5: google/flan-t5-base
+
+training:
+  batch_size: 8
+  encoder_lr: 2e-5
+  t5_lr: 1e-5
+  encoder_epochs: 3
+  t5_epochs: 8
+
+paths:
+  train_data: data/train.json
+  dev_data: data/dev.json
+  test_data: data/test.json
+  save_dir: checkpoints/

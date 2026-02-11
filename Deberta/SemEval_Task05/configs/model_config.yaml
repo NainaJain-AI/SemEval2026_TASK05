@@ -1,0 +1,79 @@
+# T5-v1: AmbiStory Word Sense Plausibility Model Configuration
+
+# Model Settings
+model:
+  name: "microsoft/deberta-v3-large"
+  max_len: 384
+  dropout: 0.2
+
+# Special tokens for structured input
+special_tokens:
+  - "[STORY]"
+  - "[AMBIGUOUS]"
+  - "[ENDING]"
+  - "[HOMONYM]"
+  - "[SENSE]"
+  - "[EXAMPLE]"
+  - "[TGT]"
+  - "[/TGT]"
+
+# Training Configuration
+training:
+  batch_size: 4
+  accumulation_steps: 8  # Effective batch = 32
+  epochs: 8
+  learning_rate: 1.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  
+  # Early stopping
+  patience: 3
+  
+  # Cross-validation
+  n_folds: 5
+  
+  # Layer freezing
+  num_unfrozen_layers: 4
+
+# Loss Configuration
+loss:
+  mse_weight: 0.7
+  ordinal_weight: 0.3
+
+# Data Augmentation
+augmentation:
+  enabled: true
+  probability: 0.3
+  methods:
+    - "synonym"  # WordNet synonym replacement
+
+# Data Paths (relative to project root)
+data:
+  # Data is in ./data folder within the project
+  data_dir: "./data"
+  # Or use absolute path for HPC:
+  # data_dir: "/path/to/data"
+  
+  train_file: "train.json"
+  dev_file: "dev.json"
+  test_file: "test.json"
+
+# Output Paths
+output:
+  model_dir: "saved_models"
+  predictions_file: "predictions.json"
+  log_dir: "logs"
+
+# Hardware
+hardware:
+  device: "cuda"
+  num_workers: 2  # Use multiple workers for HPC (0 for local debugging)
+  pin_memory: true
+
+# Logging
+logging:
+  verbose: true
+  log_interval: 50  # Log every N batches
+
+# Random Seed
+seed: 42

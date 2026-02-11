@@ -1,0 +1,23 @@
+seed: 42
+llama_model: meta-llama/Llama-2-7b-hf
+llama_lr: 5e-5
+batch_size: 4
+
+models:
+  llama: meta-llama/Llama-2-7b-hf
+
+training:
+  batch_size: 4
+  llama_lr: 5e-5
+  epochs: 3
+  num_few_shots: 5  # Number of examples for few-shot learning
+  warmup_steps: 100
+  max_grad_norm: 1.0
+
+paths:
+  train_data: data/train.json
+  dev_data: data/dev.json
+  test_data: data/test.json
+  save_dir: checkpoints/
+  examples_dir: data/few_shot_examples/
+
